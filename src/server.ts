@@ -1,7 +1,21 @@
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+#!/usr/bin/env node
+
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { Client } from "node-osc";
 import { z } from "zod";
+
+// Add type definitions for the parameters
+interface PlayNoteParams {
+  note: number;
+  synth?: string;
+  sustain?: number;
+  cutoff?: number;
+}
+
+interface RunCodeParams {
+  code: string;
+}
 
 class SonicPiMCPServer {
   private server: McpServer;
@@ -34,7 +48,7 @@ class SonicPiMCPServer {
         sustain: z.number().optional().describe("Note duration in seconds"),
         cutoff: z.number().optional().describe("Filter cutoff frequency")
       },
-      async ({ note, synth = ":beep", sustain = 1, cutoff = 100 }) => {
+      async ({ note, synth = ":beep", sustain = 1, cutoff = 100 }: PlayNoteParams) => {
         try {
           const code = `
             use_synth ${synth}
@@ -60,7 +74,7 @@ class SonicPiMCPServer {
       {
         code: z.string().describe("Sonic Pi code to execute")
       },
-      async ({ code }) => {
+      async ({ code }: RunCodeParams) => {
         try {
           this.oscClient.send('/run-code', code);
           return {
@@ -81,7 +95,7 @@ class SonicPiMCPServer {
     try {
       const transport = new StdioServerTransport();
       await this.server.connect(transport);
-      console.log('Sonic Pi MCP Server started');
+      console.error('Sonic Pi MCP Server started');
     } catch (error) {
       console.error('Failed to start server:', error);
       process.exit(1);

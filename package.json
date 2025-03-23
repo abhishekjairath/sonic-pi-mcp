@@ -3,23 +3,20 @@
   "version": "0.1.0",
   "description": "Model Context Protocol server for Sonic Pi",
   "type": "module",
-  "main": "dist/server.mjs",
-  "bin": {
-    "sonic-pi-mcp": "./bin/cli.mjs"
-  },
+  "main": "./dist/server.js",
+  "bin": "./dist/server.js",
   "files": [
-    "dist",
-    "bin"
+    "dist"
   ],
   "scripts": {
-    "build": "tsc && find dist -name '*.js' -exec sh -c 'mv \"$1\" \"${1%.js}.mjs\"' _ {} \\;",
-    "start": "node dist/server.mjs",
+    "build": "tsc --skipLibCheck && chmod +x dist/server.js",
+    "start": "node dist/server.js",
     "dev": "ts-node --esm src/server.ts",
     "lint": "eslint . --ext .ts",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "1.7.0",
+    "@modelcontextprotocol/sdk": "^1.6.0",
     "node-osc": "^8.0.12",
     "zod": "^3.22.4"
   },
