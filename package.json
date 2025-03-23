@@ -4,7 +4,9 @@
   "description": "Model Context Protocol server for Sonic Pi",
   "type": "module",
   "main": "./dist/server.js",
-  "bin": "./dist/server.js",
+  "bin": {
+    "sonic-pi-mcp": "dist/server.js"
+  },
   "files": [
     "dist"
   ],
@@ -40,7 +42,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/abhishekjairath/sonic-pi-mcp.git"
+    "url": "git+https://github.com/abhishekjairath/sonic-pi-mcp.git"
   },
   "bugs": {
     "url": "https://github.com/abhishekjairath/sonic-pi-mcp/issues"
