@@ -11,7 +11,7 @@ A Model Context Protocol (MCP) server that allows AI assistants to interact with
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/) (v18 or higher)
+- [Bun](https://bun.sh)
 - [Sonic Pi](https://sonic-pi.net/) (v4.0 or higher)
 - An MCP-compatible client (Cursor, Claude Desktop, etc.)
 
@@ -51,8 +51,8 @@ Add to `~/.cursor/mcpServers.json`:
   "mcpServers": {
     "sonic_pi_mcp": {
       "name": "Sonic Pi MCP",
-      "command": "npx",
-      "args": ["-y", "sonic-pi-mcp", "start"],
+      "command": "bunx",
+      "args": ["sonic-pi-mcp"],
       "transport": {
         "type": "stdio"
       }
@@ -63,13 +63,13 @@ Add to `~/.cursor/mcpServers.json`:
 
 #### Claude Desktop
 
-Add to Claude's MCP configuration:
+Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
 ```json
 {
   "mcpServers": {
     "sonic_pi_mcp": {
-      "command": "npx",
-      "args": ["-y", "sonic-pi-mcp", "start"]
+      "command": "bunx",
+      "args": ["sonic-pi-mcp"],
     }
   }
 }
@@ -171,34 +171,35 @@ Here are some example interactions using the MCP tools:
 git clone https://github.com/abhishekjairath/sonic-pi-mcp.git
 cd sonic-pi-mcp
 
+# Install Bun if you haven't already
+curl -fsSL https://bun.sh/install | bash
+
 # Install dependencies
-npm install
-
-# Build
-npm run build
-
-# Install MCP Inspector globally (for testing)
-npm install -g @modelcontextprotocol/inspector
+bun install
 
 # Start Sonic Pi and run the OSC handler code (see Sonic Pi Configuration section)
 
-# Start the server in one terminal
-npm run dev
-
-# In another terminal, start the MCP Inspector
-mcp-inspector
+# Start the server in development mode
+bun run dev
 ```
 
 ### Testing with MCP Inspector
 
-1. Open your browser and navigate to http://localhost:3000
-2. In the MCP Inspector UI, configure the connection:
-   - Command: `node`
-   - Arguments: `dist/server.mjs`
+1. Install and start the MCP Inspector:
+```bash
+npm install -g @modelcontextprotocol/inspector
+mcp-inspector
+```
+
+2. Open your browser and navigate to http://localhost:3000
+
+3. In the MCP Inspector UI, configure the connection:
+   - Command: `bun`
+   - Arguments: `run src/server.ts`
    - Working Directory: `/path/to/your/sonic-pi-mcp` (use your actual project path)
    - Transport Type: stdio
 
-3. Test the `play_note` tool:
+4. Test the `play_note` tool:
 ```json
 {
   "name": "play_note",
@@ -210,7 +211,7 @@ mcp-inspector
 }
 ```
 
-4. Test the `run_code` tool:
+5. Test the `run_code` tool:
 ```json
 {
   "name": "run_code",
@@ -220,17 +221,15 @@ mcp-inspector
 }
 ```
 
-5. Check the Sonic Pi log window for any error messages or output
-
 ### Troubleshooting Development Issues
 
-1. **Build Errors**
-   - Run `npm run build` and check for TypeScript errors
-   - Ensure all dependencies are installed correctly
-   - Check `tsconfig.json` for proper configuration
+1. **Bun Installation Issues**
+   - Make sure Bun is in your PATH
+   - Try running `bun --version` to verify the installation
+   - If using Claude Desktop, use the full path to Bun in the config
 
 2. **MCP Inspector Connection Issues**
-   - Verify the server is running (`npm run dev`)
+   - Verify the server is running (`bun run dev`)
    - Check that the working directory path is correct
    - Ensure no other instances of the server are running
 

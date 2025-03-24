@@ -1,51 +1,40 @@
 {
   "name": "sonic-pi-mcp",
   "version": "0.1.1",
-  "description": "Model Context Protocol server for Sonic Pi",
+  "module": "src/server.ts",
   "type": "module",
-  "main": "./dist/server.js",
-  "bin": {
-    "sonic-pi-mcp": "dist/server.js"
-  },
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "build": "tsc --skipLibCheck && chmod +x dist/server.js",
-    "start": "node dist/server.js",
-    "dev": "ts-node --esm src/server.ts",
-    "lint": "eslint . --ext .ts",
-    "prepublishOnly": "npm run build"
-  },
-  "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.6.0",
-    "node-osc": "^8.0.12",
-    "zod": "^3.22.4"
-  },
-  "devDependencies": {
-    "@types/node": "^20.11.24",
-    "@types/node-osc": "^9.1.0",
-    "@typescript-eslint/eslint-plugin": "^7.1.0",
-    "@typescript-eslint/parser": "^7.1.0",
-    "eslint": "^8.57.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
-  },
-  "keywords": [
-    "mcp",
-    "sonic-pi",
-    "ai",
-    "llm",
-    "music"
-  ],
+  "description": "Model Context Protocol server for Sonic Pi",
   "author": "Abhishek Jairath",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/abhishekjairath/sonic-pi-mcp.git"
   },
-  "bugs": {
-    "url": "https://github.com/abhishekjairath/sonic-pi-mcp/issues"
+  "keywords": [
+    "mcp",
+    "sonic-pi",
+    "ai",
+    "llm",
+    "music",
+    "claude"
+  ],
+  "bin": {
+    "sonic-pi-mcp": "./src/server.ts"
   },
-  "homepage": "https://github.com/abhishekjairath/sonic-pi-mcp#readme"
+  "scripts": {
+    "dev": "bun run src/server.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/node": "^20.11.24",
+    "@types/node-osc": "^9.1.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.6.0",
+    "node-osc": "^8.0.12",
+    "zod": "^3.22.4"
+  }
 }
