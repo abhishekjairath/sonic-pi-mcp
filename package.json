@@ -19,7 +19,7 @@
     "claude"
   ],
   "bin": {
-    "sonic-pi-mcp": "./src/server.ts"
+    "sonic-pi-mcp": "src/server.ts"
   },
   "scripts": {
     "dev": "bun run src/server.ts"
