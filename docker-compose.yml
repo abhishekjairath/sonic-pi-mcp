@@ -1,0 +1,11 @@
+version: '3'
+services:
+  sonic-pi-mcp:
+    build: .
+    network_mode: "host"  # This allows access to host network
+    environment:
+      - OSC_HOST=192.168.1.5  # Your Sonic Pi IP
+      - OSC_PORT=4560
+    volumes:
+      - .:/app  # Mount source code for development
+      - /app/node_modules  # Preserve container node_modules 

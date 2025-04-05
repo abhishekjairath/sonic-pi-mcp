@@ -22,7 +22,12 @@
     "sonic-pi-mcp": "src/server.ts"
   },
   "scripts": {
-    "dev": "bun run src/server.ts"
+    "dev": "bun run src/server.ts",
+    "build": "bun build src/server.ts --outdir dist",
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up",
+    "docker:test": "docker-compose run sonic-pi-mcp bun run test",
+    "test": "bun run src/test.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",

@@ -12,9 +12,11 @@ RUN bun install
 # Copy rest of the files
 COPY . .
 
-# We don't need to expose port 3000 as we're using OSC on 4560
-# Instead, we need to ensure UDP communication is possible for OSC
+# Build if needed
+RUN bun run build
+
+# Expose UDP port for OSC communication
 EXPOSE 4560/udp
 
 # Start the server using bun
-CMD ["bun", "run", "src/server.ts"]
+CMD ["bun", "src/server.ts"]
