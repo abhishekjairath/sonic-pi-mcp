@@ -1,4 +1,5 @@
 # Sonic Pi MCP
+[![smithery badge](https://smithery.ai/badge/@abhishekjairath/sonic-pi-mcp)](https://smithery.ai/server/@abhishekjairath/sonic-pi-mcp)
 
 A Model Context Protocol (MCP) server that allows AI assistants to interact with Sonic Pi through OSC messages. This enables AI tools like Claude and Cursor to create music and control Sonic Pi programmatically.
 
