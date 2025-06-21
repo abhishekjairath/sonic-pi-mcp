@@ -59,7 +59,13 @@ live_loop :song_queue do
         "amp: #{original_amp} * get[:master_volume]"
       end
       
-      eval(volume_controlled_code)
+      # Replace sync calls to use the new song-specific loop names
+      sync_fixed_code = volume_controlled_code.gsub(/sync\s+:(\w+)/) do |match|
+        original_loop_name = $1
+        "sync :song_#{new_song_id}_#{original_loop_name}"
+      end
+      
+      eval(sync_fixed_code)
       
       puts "Song #{new_song_id} started"
       
