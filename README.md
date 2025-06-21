@@ -40,6 +40,8 @@ end
 
 Make sure this code is running in Sonic Pi before using the MCP server.
 
+You can also try running [this script](https://github.com/abhishekjairath/sonic-pi-mcp/blob/main/sonic-pi-queue.rb) in SonicPi to have AI assitants play songs in a queue.
+
 
 ## Integration with Clients
 
