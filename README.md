@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/abhishekjairath-sonic-pi-mcp-badge.png)](https://mseep.ai/app/abhishekjairath-sonic-pi-mcp)
+
 # Sonic Pi MCP
 [![smithery badge](https://smithery.ai/badge/@abhishekjairath/sonic-pi-mcp)](https://smithery.ai/server/@abhishekjairath/sonic-pi-mcp)
 
