@@ -3,6 +3,10 @@
 
 A Model Context Protocol (MCP) server that allows AI assistants to interact with Sonic Pi through OSC messages. This enables AI tools like Claude and Cursor to create music and control Sonic Pi programmatically.
 
+<a href="https://glama.ai/mcp/servers/@abhishekjairath/sonic-pi-mcp">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@abhishekjairath/sonic-pi-mcp/badge" alt="Sonic Pi MCP server" />
+</a>
+
 ## Features
 
 - Play individual notes with customizable synth parameters
