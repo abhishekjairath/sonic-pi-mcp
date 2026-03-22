@@ -1,9 +1,8 @@
 {
   "name": "sonic-pi-mcp",
-  "version": "0.2.0",
-  "module": "src/server.ts",
+  "version": "2.0.0",
+  "description": "MCP server for Sonic Pi: natural-language DJ sessions, OSC, queue runner, tools and prompts",
   "type": "module",
-  "description": "Model Context Protocol server for Sonic Pi",
   "author": "Abhishek Jairath",
   "license": "MIT",
   "repository": {
@@ -16,18 +15,35 @@
     "ai",
     "llm",
     "music",
-    "claude"
+    "claude",
+    "dj"
   ],
-  "bin": {
-    "sonic-pi-mcp": "src/server.ts"
+  "engines": {
+    "node": ">=18"
   },
+  "bin": {
+    "sonic-pi-mcp": "bin/cli.mjs"
+  },
+  "files": [
+    "dist",
+    "bin",
+    "sonic-pi-queue.rb",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
+    "build": "bun build src/server.ts --outfile dist/server.mjs --target node --format esm --packages external",
+    "prepack": "bun run build",
     "dev": "bun run src/server.ts",
-    "build": "bun build src/server.ts --outdir dist",
+    "start": "node bin/cli.mjs",
     "docker:build": "docker-compose build",
     "docker:up": "docker-compose up",
-    "docker:test": "docker-compose run sonic-pi-mcp bun run test",
     "test": "bun run src/test.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "node-osc": "^8.0.12",
+    "zod": "^4.0.0"
   },
   "devDependencies": {
     "@types/bun": "latest",
@@ -36,10 +52,5 @@
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
-  },
-  "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.6.0",
-    "node-osc": "^8.0.12",
-    "zod": "^3.22.4"
   }
 }

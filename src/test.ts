@@ -1,37 +1,33 @@
 import { Client } from "node-osc";
+import { getOscCodePath, getOscHost, getOscPort } from "./config.ts";
 
-const OSC_HOST = process.env.OSC_HOST || '192.168.1.5';
-const OSC_PORT = parseInt(process.env.OSC_PORT || '4560');
+const host = getOscHost();
+const port = getOscPort();
+const codePath = getOscCodePath();
 
-async function testConnection() {
-    console.log(`Testing connection to Sonic Pi at ${OSC_HOST}:${OSC_PORT}`);
-    
-    const client = new Client(OSC_HOST, OSC_PORT);
-    
-    // Send a test message
-    const testCode = `
-    print "Docker test connection successful!"
-    use_synth :beep
-    play 60
-    sleep 0.5
-    play 64
-    sleep 0.5
-    play 67
-    `;
-    
-    try {
-        client.send('/run-code', testCode);
-        console.log('Test message sent successfully');
-        
-        // Wait a bit before closing
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        
-        client.close();
-        console.log('Test completed');
-    } catch (error) {
-        console.error('Error during test:', error);
-        process.exit(1);
-    }
+async function testConnection(): Promise<void> {
+  console.error(`Testing OSC to Sonic Pi at ${host}:${port} (${codePath})`);
+
+  const client = new Client(host, port);
+
+  const testCode = `
+print "sonic-pi-mcp test"
+use_synth :beep
+play 60
+sleep 0.5
+play 64
+`;
+
+  try {
+    client.send(codePath, testCode);
+    console.error("OSC message sent.");
+    await new Promise((r) => setTimeout(r, 1500));
+    client.close();
+    console.error("Done.");
+  } catch (error) {
+    console.error("Error:", error);
+    process.exit(1);
+  }
 }
 
-testConnection(); 
+void testConnection();
